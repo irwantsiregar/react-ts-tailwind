@@ -13,7 +13,10 @@ interface Todos {
 
 type Action =
   | { type: 'add' }
-  | { type: 'update' };
+  | { type: 'update' }
+  | { type: 'all' }
+  | { type: 'active' }
+  | { type: 'completed' };
 
 function App (): React.ReactElement {
   const [todos, setTodos] = useState<Todos[] | []>([]);
@@ -70,8 +73,15 @@ function App (): React.ReactElement {
     }
   };
 
-  // console.log(selectedTodo);
-  // console.log(action);
+  const handleUpdateTabs = (tab: Action): void => {
+    if (tab.type === 'completed') {
+      setTodos(todos.filter((item) => item.completed));
+    } else if (tab.type === 'active') {
+      setTodos(todos.filter((item) => !item.completed));
+    } else {
+      setTodos(todos);
+    }
+  };
 
   return (
     <div className="w-screen h-screen pt-4 bg-white overflow-auto">
@@ -91,17 +101,35 @@ function App (): React.ReactElement {
           <div className="bg-white rounded-lg h-min p-4 shadow-xl">
               <div className="flex justify-between pb-6 px-2">
                 <div>
-                  <span>5 items left</span>
+                  <span>{todos.length} items</span>
                 </div>
                 <div className="flex">
-                  <div className="px-3">
-                    <span className="text-purple-400">All</span>
+                  <div className="px-3" onClick={() => {
+                    handleUpdateTabs(
+                      {
+                        type: 'all'
+                      }
+                    );
+                  }}>
+                    <span className="text-purple-400 hover:cursor-pointer">All</span>
                   </div>
-                  <div className="px-3">
-                    <span>Active</span>
+                  <div className="px-3" onClick={() => {
+                    handleUpdateTabs(
+                      {
+                        type: 'active'
+                      }
+                    );
+                  }}>
+                    <span className='hover:cursor-pointer'>Active</span>
                   </div>
-                  <div className="px-3">
-                    <span>Completed</span>
+                  <div className="px-3" onClick={() => {
+                    handleUpdateTabs(
+                      {
+                        type: 'completed'
+                      }
+                    );
+                  }}>
+                    <span className='hover:cursor-pointer'>Completed</span>
                   </div>
                 </div>
                 <div className="text-slate-400">
