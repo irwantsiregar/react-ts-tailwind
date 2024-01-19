@@ -1,0 +1,57 @@
+@baseurl = https://dummyjson.com
+@token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoia21pbmNoZWxsZSIsImVtYWlsIjoia21pbmNoZWxsZUBxcS5jb20iLCJmaXJzdE5hbWUiOiJKZWFubmUiLCJsYXN0TmFtZSI6IkhhbHZvcnNvbiIsImdlbmRlciI6ImZlbWFsZSIsImltYWdlIjoiaHR0cHM6Ly9yb2JvaGFzaC5vcmcvYXV0cXVpYXV0LnBuZz9zaXplPTUweDUwJnNldD1zZXQxIiwiaWF0IjoxNjM1NzczOTYyLCJleHAiOjE2MzU3Nzc1NjJ9.n9PQX8w8ocKo0dMCw3g8bKhjB8Wo7f7IONFBDqfxKhs"
+
+###
+
+POST {{baseurl}}/auth/login HTTP/1.1
+Content-Type: application/json
+
+ { 
+    "username": "kminchelle",
+    "password": "0lelplR"
+    // expiresInMins: 60, // optional
+  }
+
+###
+
+# @Get Profile
+GET https://dummyjson.com/auth/me HTTP/1.1
+Content-Type: application/json
+Authorization: tok
+
+###
+
+# @Get All Todo
+GET {{baseurl}}/todos HTTP/1.1
+
+###
+
+# @Get Todo By Id
+GET {{baseurl}}/todos/1 HTTP/1.1
+
+###
+
+# @Delete Todo By Id
+DELETE {{baseurl}}/todos/1 HTTP/1.1
+
+###
+
+# @Added Todo
+POST https://dummyjson.com/todos/add HTTP/1.1
+content-type: application/json
+
+{
+    "todo": "This add as example",
+    "completed": false,
+    "userId": 15
+ }
+
+###
+
+# @Update Todo related
+PATCH  https://dummyjson.com/todos/1 HTTP/1.1
+content-type: application/json
+
+{
+  "todo": "Update2 This add as example"
+}
